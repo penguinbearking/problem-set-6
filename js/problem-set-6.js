@@ -11,6 +11,11 @@
  */
 
 function sayHello() {
+	const canv = document.getElementById("canvas1")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+	ctxt.font = '48px sans-serif';
+	ctxt.strokeText("Hello, World!", 10, 50);
 
 }
 
@@ -38,6 +43,32 @@ function sayHello() {
  */
 
 function drawRectangle() {
+
+	const canv = document.getElementById("canvas2")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+	let usrx;
+	let usry;
+	let usrh;
+	let usrw;
+
+	while(true) {
+		usrx = Number(prompt("Enter X Value"));
+		usry = Number(prompt("Enter Y Value"));
+		usrh = Number(prompt("Enter Height"));
+		usrw = Number(prompt("Enter Width"));
+
+		if(usrx >= 5 && usry >= 5 && usrh >= 1 && usrw >= 1 && 
+			usrx+usrw <= canv.width && usry+usrh <= canv.height) {
+			//console.log("1")
+			break;
+		}
+		alert("Your inputs are invalid");
+	}
+
+	ctxt.strokeRect(usrx, usry, usrw, usrh);
+
+
 
 }
 
@@ -67,6 +98,24 @@ function drawRectangle() {
  */
 
 function drawColoredRectangle() {
+
+	const canv = document.getElementById("canvas3")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+	let usrcol;
+
+	while(true) {
+		usrcol = prompt("Enter a Color");
+		if(usrcol == "black" || usrcol == "blue" || 
+			usrcol == "green" || usrcol == "orange" || usrcol == "purple" 
+			|| usrcol == "red" || usrcol == "yellow") {
+			break;
+		}
+		alert("Your inputs are invalid");
+
+	}
+	ctxt.fillStyle=usrcol;
+	ctxt.fillRect(10, 10, 100, 50);
 
 }
 
@@ -100,6 +149,41 @@ function drawColoredRectangle() {
  */
 
 function drawTriangle() {
+	const canv = document.getElementById("canvas4")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+	let strx = 10;
+	let stry = 10;
+	let usrl1;
+	let usrl2;
+	let usrl3;
+	while (true) {
+		usrl1 = Number(prompt("Enter Line Length"));
+		usrl2 = Number(prompt("Enter Line Length"));
+		usrl3 = Number(prompt("Enter Hypotenuse Length"));
+		if ((usrl1*usrl1 + usrl2*usrl2 == usrl3*usrl3) && 
+			usrl1>0 && usrl2>0 && usrl3>0 && 
+			canv.width-strx-usrl1>=0 && canv.height-stry-usrl2>=0) {
+
+			break;
+		}
+		else {alert("That is not a valid triangle");}
+	}
+
+	ctxt.beginPath();
+	ctxt.moveTo(strx, stry);
+	ctxt.lineTo(strx, stry+usrl2);
+	ctxt.stroke();
+
+	ctxt.beginPath();
+	ctxt.moveTo(strx, stry+usrl2)
+	ctxt.lineTo(strx+usrl1, stry);
+	ctxt.stroke();
+
+	ctxt.beginPath();
+	ctxt.moveTo(strx+usrl1, stry);
+	ctxt.lineTo(strx, stry);
+	ctxt.stroke();
 
 }
 
@@ -145,6 +229,49 @@ function drawSmileyFace() {
  */
 
 function drawStar() {
+	const canv = document.getElementById("canvas6")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+
+	let ctrx = 125;
+	let ctry = 125;
+	let numpoints = 5;
+	let pointouty = [];
+	let pointoutx = [];
+	let pointiny = [];
+	let pointinx = [];
+
+	while (true) {
+		outrad = Number(prompt("Enter Outer Radius"));
+		inrad = Number(prompt("Enter Inner Radius"));
+		console.log(outrad);
+		console.log(inrad);
+		if(outrad>inrad && canv.width >= outrad + 125 && canv.height >= outrad + 125) {
+			break;
+		}
+		else {alert("Invalid Inputs");}
+	}
+
+	for (i=0;i<numpoints;i++) {
+		pointoutx.push(125+outrad*(Math.cos(Math.PI*i/5)));
+		pointouty.push(125+outrad*(Math.sin(Math.PI*i/5)));
+	}
+	for (i=0;i<numpoints;i++) {
+		pointinx.push(125+inrad*(Math.cos(Math.PI*i/5 + 36)));
+		pointiny.push(125+inrad*(Math.sin(Math.PI*i/5 + 36)));
+	}
+
+	ctxt.beginPath();
+	ctxt.moveTo(125,125);
+	ctxt.lineTo(pointoutx[0], pointouty[0]);
+
+	for(j=0;j<numpoints;j++) {
+		ctxt.beginPath();
+		ctxt.moveTo(pointoutx[j], pointouty[j]);
+		ctxt.lineTo(pointinx[j], pointiny[j]);
+		ctxt.lineTo(pointoutx[j+1], pointouty[j+1]);
+		ctxt.stroke();
+	}
 
 }
 
