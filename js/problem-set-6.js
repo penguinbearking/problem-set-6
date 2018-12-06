@@ -252,11 +252,11 @@ function drawStar() {
 		else {alert("Invalid Inputs");}
 	}
 
-	for (i=0;i<numpoints;i++) {
+	for (let i=0;i<numpoints;i++) {
 		pointoutx.push(125+outrad*(Math.cos(Math.PI*i/5)));
 		pointouty.push(125+outrad*(Math.sin(Math.PI*i/5)));
 	}
-	for (i=0;i<numpoints;i++) {
+	for (let i=0;i<numpoints;i++) {
 		pointinx.push(125+inrad*(Math.cos(Math.PI*i/5 + 36)));
 		pointiny.push(125+inrad*(Math.sin(Math.PI*i/5 + 36)));
 	}
@@ -265,7 +265,7 @@ function drawStar() {
 	ctxt.moveTo(125,125);
 	ctxt.lineTo(pointoutx[0], pointouty[0]);
 
-	for(j=0;j<numpoints;j++) {
+	for(let j=0;j<numpoints;j++) {
 		ctxt.beginPath();
 		ctxt.moveTo(pointoutx[j], pointouty[j]);
 		ctxt.lineTo(pointinx[j], pointiny[j]);
