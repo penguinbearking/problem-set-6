@@ -207,6 +207,9 @@ function drawTriangle() {
  */
 
 function drawSmileyFace() {
+	let facerad;
+	let 
+	
 
 }
 
@@ -262,6 +265,8 @@ function drawStar() {
 		pointinx.push(125+inrad*(Math.cos(Math.PI*i/5 + 36)));
 		pointiny.push(125+inrad*(Math.sin(Math.PI*i/5 + 36)));
 	}
+	
+	
 
 	for(let j=0;j<numpoints;j++) {
 		ctxt.beginPath();
