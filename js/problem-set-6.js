@@ -232,7 +232,9 @@ function drawStar() {
 	const canv = document.getElementById("canvas6")
 	const ctxt = canv.getContext('2d');
 	ctxt.clearRect(0, 0, canv.width, canv.height);
-
+	
+	let inrad;
+	let outrad;
 	let ctrx = 125;
 	let ctry = 125;
 	let numpoints = 5;
@@ -260,10 +262,6 @@ function drawStar() {
 		pointinx.push(125+inrad*(Math.cos(Math.PI*i/5 + 36)));
 		pointiny.push(125+inrad*(Math.sin(Math.PI*i/5 + 36)));
 	}
-
-	ctxt.beginPath();
-	ctxt.moveTo(125,125);
-	ctxt.lineTo(pointoutx[0], pointouty[0]);
 
 	for(let j=0;j<numpoints;j++) {
 		ctxt.beginPath();
