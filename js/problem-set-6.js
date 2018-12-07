@@ -14,8 +14,11 @@ function sayHello() {
 	const canv = document.getElementById("canvas1")
 	const ctxt = canv.getContext('2d');
 	ctxt.clearRect(0, 0, canv.width, canv.height);
-	ctxt.font = '48px sans-serif';
-	ctxt.strokeText("Hello, World!", 10, 50);
+	let draw = true;
+	if(draw) {
+		ctxt.font = '48px sans-serif';
+		ctxt.strokeText("Hello, World!", 10, 50);
+	}
 
 }
 
@@ -51,22 +54,22 @@ function drawRectangle() {
 	let usry;
 	let usrh;
 	let usrw;
+	let draw = false;
 
-	while(true) {
-		usrx = Number(prompt("Enter X Value"));
-		usry = Number(prompt("Enter Y Value"));
-		usrh = Number(prompt("Enter Height"));
-		usrw = Number(prompt("Enter Width"));
+	usrx = Number(prompt("Enter X Value"));
+	usry = Number(prompt("Enter Y Value"));
+	usrh = Number(prompt("Enter Height"));
+	usrw = Number(prompt("Enter Width"));
 
-		if(usrx >= 5 && usry >= 5 && usrh >= 1 && usrw >= 1 && 
-			usrx+usrw <= canv.width && usry+usrh <= canv.height) {
-			//console.log("1")
-			break;
-		}
-		alert("Your inputs are invalid");
+	if(usrx >= 5 && usry >= 5 && usrh >= 1 && usrw >= 1 && 
+		usrx+usrw <= canv.width && usry+usrh <= canv.height) {
+		draw = true;
 	}
+	else{alert("Invalid input(s)");}
 
-	ctxt.strokeRect(usrx, usry, usrw, usrh);
+	if(draw) {
+		ctxt.strokeRect(usrx, usry, usrw, usrh);
+	}
 
 
 
@@ -103,19 +106,20 @@ function drawColoredRectangle() {
 	const ctxt = canv.getContext('2d');
 	ctxt.clearRect(0, 0, canv.width, canv.height);
 	let usrcol;
+	let draw = false;
 
-	while(true) {
-		usrcol = prompt("Enter a Color");
-		if(usrcol == "black" || usrcol == "blue" || 
-			usrcol == "green" || usrcol == "orange" || usrcol == "purple" 
-			|| usrcol == "red" || usrcol == "yellow") {
-			break;
-		}
-		alert("Your inputs are invalid");
-
+	usrcol = prompt("Enter a Color");
+	if(usrcol == "black" || usrcol == "blue" || 
+		usrcol == "green" || usrcol == "orange" || usrcol == "purple" 
+		|| usrcol == "red" || usrcol == "yellow") {
+		draw = true;
 	}
-	ctxt.fillStyle=usrcol;
-	ctxt.fillRect(10, 10, 100, 50);
+	else{alert("Invalid input(s)");}
+
+	if(draw) {
+		ctxt.fillStyle=usrcol;
+		ctxt.fillRect(10, 10, 100, 50);
+	}
 
 }
 
@@ -157,34 +161,30 @@ function drawTriangle() {
 	let usrl1;
 	let usrl2;
 	let usrl3;
-	while (true) {
-		usrl1 = Number(prompt("Enter Line Length"));
-		usrl2 = Number(prompt("Enter Line Length"));
-		usrl3 = Number(prompt("Enter Hypotenuse Length"));
-		if ((usrl1*usrl1 + usrl2*usrl2 == usrl3*usrl3) && 
-			usrl1>0 && usrl2>0 && usrl3>0 && 
-			canv.width-strx-usrl1>=0 && canv.height-stry-usrl2>=0) {
+	let draw = false;
 
-			break;
-		}
-		else {alert("That is not a valid triangle");}
+	usrl1 = Number(prompt("Enter Line Length"));
+	usrl2 = Number(prompt("Enter Line Length"));
+	usrl3 = Number(prompt("Enter Hypotenuse Length"));
+	if ((usrl1*usrl1 + usrl2*usrl2 == usrl3*usrl3) && 
+		usrl1>0 && usrl2>0 && usrl3>0 && 
+		canv.width-strx-usrl1>=0 && canv.height-stry-usrl2>=0) {
+		draw = true;
 	}
+	else{alert("Invalid input(s)");}
 
-	ctxt.beginPath();
-	ctxt.moveTo(strx, stry);
-	ctxt.lineTo(strx, stry+usrl2);
-	ctxt.stroke();
-
-	ctxt.beginPath();
-	ctxt.moveTo(strx, stry+usrl2)
-	ctxt.lineTo(strx+usrl1, stry);
-	ctxt.stroke();
-
-	ctxt.beginPath();
-	ctxt.moveTo(strx+usrl1, stry);
-	ctxt.lineTo(strx, stry);
-	ctxt.stroke();
-
+	if(draw) {
+		//Leg 1
+		ctxt.beginPath();
+		ctxt.moveTo(strx, stry);
+		ctxt.lineTo(strx, stry+usrl2);
+		//Hypotenus
+		ctxt.lineTo(strx+usrl1, stry);
+		//Leg 2
+		ctxt.lineTo(strx, stry);
+		ctxt.closePath();
+		ctxt.stroke();
+	}
 }
 
 /*
@@ -207,10 +207,52 @@ function drawTriangle() {
  */
 
 function drawSmileyFace() {
-	let facerad;
-	let 
-	
+	const canv = document.getElementById("canvas5")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
 
+	let facerad;
+	let eyerad;
+	let mouthrad;
+	let draw = false;
+
+	facerad = Number(prompt("Enter face radius"));
+	ctrx = Number(prompt("Enter X value"));
+	ctry = Number(prompt("Enter Y value"));
+	if (facerad + ctrx <= canv.width && facerad + ctry <= canv.height 
+		&& facerad >= 1 && ctrx - facerad >= 0 && ctry - facerad >= 0) {
+		draw = true;
+	}
+	else{alert("Invalid input(s)");}
+		
+	eyerad = facerad*.1;
+	mouthrad = facerad*.7;
+
+	if(draw) {
+		//Face
+		ctxt.beginPath();
+		ctxt.arc(ctrx, ctry, facerad, Math.PI*0, Math.PI*2);
+		ctxt.closePath()
+		ctxt.stroke();
+
+		//Left Eye
+		ctxt.beginPath();
+		ctxt.arc(ctrx - facerad*.35, ctry - facerad*.4, eyerad, Math.PI*0, Math.PI*2);
+		ctxt.closePath()
+		ctxt.stroke();
+
+		//Right Eye
+		ctxt.beginPath();
+		ctxt.arc(ctrx + facerad*.35, ctry - facerad*.4, eyerad, Math.PI*0, Math.PI*2);
+		ctxt.closePath()
+		ctxt.stroke();
+
+		//Mouth
+		ctxt.beginPath();
+		ctxt.arc(ctrx, ctry, mouthrad, Math.PI*0, Math.PI*1);
+		//ctxt.closePath()
+		ctxt.stroke();
+	}
 }
 
 /*
@@ -240,42 +282,41 @@ function drawStar() {
 	let outrad;
 	let ctrx = 125;
 	let ctry = 125;
-	let numpoints = 5;
+	let numpoints = 10;
 	let pointouty = [];
 	let pointoutx = [];
 	let pointiny = [];
 	let pointinx = [];
+	let draw = false;
 
-	while (true) {
-		outrad = Number(prompt("Enter Outer Radius"));
-		inrad = Number(prompt("Enter Inner Radius"));
-		console.log(outrad);
-		console.log(inrad);
-		if(outrad>inrad && canv.width >= outrad + 125 && canv.height >= outrad + 125) {
-			break;
-		}
-		else {alert("Invalid Inputs");}
+	outrad = Number(prompt("Enter Outer Radius"));
+	inrad = Number(prompt("Enter Inner Radius"));
+	numpoints = Number(prompt("Enter number of points"));
+
+	if(outrad>=inrad && canv.width >= outrad + 125 && 
+		canv.height >= outrad + 125 && inrad>=1 && outrad>=1) {
+		draw = true;
 	}
+	else{alert("Invalid input(s)");}
 
 	for (let i=0;i<numpoints;i++) {
-		pointoutx.push(125+outrad*(Math.cos(Math.PI*i/5)));
-		pointouty.push(125+outrad*(Math.sin(Math.PI*i/5)));
+		pointoutx.push(125+outrad*(Math.cos(Math.PI*2*i/numpoints - Math.PI/2)));
+		pointouty.push(125+outrad*(Math.sin(Math.PI*2*i/numpoints - Math.PI/2)));
+		pointinx.push(125+inrad*(Math.cos(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
+		pointiny.push(125+inrad*(Math.sin(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
 	}
-	for (let i=0;i<numpoints;i++) {
-		pointinx.push(125+inrad*(Math.cos(Math.PI*i/5 + 36)));
-		pointiny.push(125+inrad*(Math.sin(Math.PI*i/5 + 36)));
-	}
-	
-	
 
-	for(let j=0;j<numpoints;j++) {
+	if(draw) {
 		ctxt.beginPath();
-		ctxt.moveTo(pointoutx[j], pointouty[j]);
-		ctxt.lineTo(pointinx[j], pointiny[j]);
-		ctxt.lineTo(pointoutx[j+1], pointouty[j+1]);
-		ctxt.stroke();
+		ctxt.moveTo(pointoutx[0], pointouty[0]);
+		for(let j=0;j<numpoints;j++) {
+			ctxt.lineTo(pointinx[j], pointiny[j]);
+			ctxt.lineTo(pointoutx[j+1], pointouty[j+1]);
+		}
+			ctxt.lineTo(pointoutx[0], pointouty[0]);
+			ctxt.closePath();
+			ctxt.stroke();
 	}
-
 }
 
 /*
@@ -294,6 +335,50 @@ function drawStar() {
  */
 
 function drawStopSign() {
+	const canv = document.getElementById("canvas7")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+
+	let sidel = 80;
+	let ctrx = 10 + .5*sidel*Math.sqrt(2) + .5*sidel;
+	let ctry = 10 + .5*sidel*Math.sqrt(2) + .5*sidel;
+	let xpoints = [];
+	let ypoints = [];
+	let numpoints = 8;
+	let rad = sidel/(2*Math.sin(Math.PI/numpoints))
+	let draw = true;
+
+	for (i=0; i<numpoints; i++) {
+		if(numpoints%2 == 0) {
+			xpoints.push(ctrx+rad*Math.cos(Math.PI*2*i/numpoints - (Math.PI/2 - Math.PI/numpoints)));
+			ypoints.push(ctry+rad*Math.sin(Math.PI*2*i/numpoints - (Math.PI/2 - Math.PI/numpoints)));
+		}
+		else if(numpoints%2 == 1) {
+			xpoints.push(ctrx+rad*Math.cos(Math.PI*2*i/numpoints - Math.PI/2));
+			ypoints.push(ctry+rad*Math.sin(Math.PI*2*i/numpoints - Math.PI/2));
+
+		}
+	}
+
+	if(draw) {
+		ctxt.beginPath();
+		ctxt.moveTo(xpoints[0], ypoints[0]);
+		for(let j=0;j<numpoints;j++) {
+			ctxt.lineTo(xpoints[j+1], ypoints[j+1]);
+		}
+		ctxt.lineTo(xpoints[0], ypoints[0]);
+		ctxt.closePath();
+		ctxt.fillStyle = 'red';
+		ctxt.fill();
+		ctxt.strokeStyle = 'black';
+		ctxt.textBaseline="middle";
+		ctxt.fillStyle = 'white';
+		ctxt.font = "65px sans-serif";
+		ctxt.fillText("STOP", ctrx - ctxt.measureText("STOP").width/2, ctry);
+		ctxt.stroke();
+
+
+	}
 
 }
 
@@ -316,6 +401,36 @@ function drawStopSign() {
  */
 
 function drawPyramid() {
+	const canv = document.getElementById("canvas8")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+
+	let draw = false;
+	let base = 5;
+
+	let basel = Number(prompt("Enter Base Length"));
+	if (basel*base + 10 <= canv.width && basel*base + 10 <= canv.height && basel >= 1) {
+		draw = true;
+		console.log("true");
+	}
+	else {alert("Invalid input(s)");}
+
+	if(draw) {
+		let k = 1;
+		let m = 0;
+		for(let i=base-1; i>=0; i--) {	
+			for (let j=0; j<=i; j++) {
+				ctxt.strokeRect((10+basel*j+m), canv.height-(10+basel*k), basel, basel);
+				console.log("i: " + i);
+				console.log("j: " + j);
+				console.log("k: " + k);
+				console.log("m: " + m);
+				console.log("f");
+			}
+			k++;
+			m+=.5*basel;
+		}
+	}
 
 }
 
@@ -349,5 +464,67 @@ function drawPyramid() {
  */
 
 function drawHouse() {
+	const canv = document.getElementById("canvas9")
+	const ctxt = canv.getContext('2d');
+	ctxt.clearRect(0, 0, canv.width, canv.height);
+
+	let draw = false;
+	let xdim = canv.width*.7;
+	let ydim = canv.height*.6;
+	let yroofdim = canv.height*.3;
+
+	let housecol = prompt("Enter House Color");
+	let doorcol = prompt("Enter Door Color");
+	if((housecol == "blue" || housecol == "brown" || housecol == "green" || 
+		housecol == "orange" || housecol == "purple" || housecol == "red" || housecol == "yellow") 
+		&& (doorcol == "blue" || doorcol == "brown" || doorcol == "green" || 
+		doorcol == "orange" || doorcol == "purple" || doorcol == "red" || doorcol == "yellow")) {
+		draw = true;
+	}
+	else {alert("Invalid input(s)");}
+
+	if (draw) {
+		ctxt.strokeStyle="black";
+		ctxt.lineWidth=2;
+
+
+		//House Frame
+		ctxt.fillStyle=housecol;
+		ctxt.fillRect(150, canv.height-ydim-10, xdim, ydim);
+		ctxt.strokeRect(150, canv.height-ydim-10, xdim, ydim);
+		//Roof
+		ctxt.fillStyle="grey";
+		ctxt.beginPath();
+		ctxt.moveTo(150, canv.height-ydim-10);
+		ctxt.lineTo(150+xdim/2, canv.height-ydim-yroofdim-10);
+		ctxt.lineTo(150+xdim, canv.height-ydim-10);
+		ctxt.closePath();
+		ctxt.stroke();
+		ctxt.fill()
+		//Door
+		ctxt.fillStyle=doorcol;
+		ctxt.fillRect(150 + (xdim/2-50), canv.height-10-160, 100, 160);
+		ctxt.strokeRect(150 + (xdim/2-50), canv.height-10-160, 100, 160);
+		ctxt.fillStyle="gold"
+		ctxt.beginPath();
+		ctxt.arc(150 + (xdim/2-35), canv.height-10-80, 6, Math.PI*0, Math.PI*2)
+		ctxt.closePath();
+		ctxt.stroke();
+		ctxt.fill();
+		//Windows
+		ctxt.fillStyle="LightBlue";
+		ctxt.fillRect(150+(xdim)*.15, canv.height-10-(ydim)*.4, xdim*.15, xdim*.15)
+		ctxt.fillRect(150+(xdim-xdim*.3), canv.height-10-(ydim)*.4, xdim*.15, xdim*.15)
+		ctxt.fillRect(150+(xdim)*.15, canv.height-10-(ydim-ydim*.15), xdim*.15, xdim*.15)
+		ctxt.fillRect(150+(xdim-xdim*.3), canv.height-10-(ydim-ydim*.15), xdim*.15, xdim*.15)
+		ctxt.strokeRect(150+(xdim)*.15, canv.height-10-(ydim)*.4, xdim*.15, xdim*.15)
+		ctxt.strokeRect(150+(xdim-xdim*.3), canv.height-10-(ydim)*.4, xdim*.15, xdim*.15)
+		ctxt.strokeRect(150+(xdim)*.15, canv.height-10-(ydim-ydim*.15), xdim*.15, xdim*.15)
+		ctxt.strokeRect(150+(xdim-xdim*.3), canv.height-10-(ydim-ydim*.15), xdim*.15, xdim*.15)
+		ctxt.stroke();
+
+	}
+
+
 
 }
