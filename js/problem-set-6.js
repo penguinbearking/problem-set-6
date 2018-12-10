@@ -300,10 +300,10 @@ function drawStar() {
 	else{alert("Invalid input(s)");}
 
 	for (let i=0;i<numpoints;i++) {
-		pointoutx.push(125+outrad*(Math.cos(Math.PI*2*i/numpoints - Math.PI/2)));
-		pointouty.push(125+outrad*(Math.sin(Math.PI*2*i/numpoints - Math.PI/2)));
-		pointinx.push(125+inrad*(Math.cos(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
-		pointiny.push(125+inrad*(Math.sin(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
+		pointoutx.push(ctrx+outrad*(Math.cos(Math.PI*2*i/numpoints - Math.PI/2)));
+		pointouty.push(ctry+outrad*(Math.sin(Math.PI*2*i/numpoints - Math.PI/2)));
+		pointinx.push(ctrx+inrad*(Math.cos(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
+		pointiny.push(ctry+inrad*(Math.sin(Math.PI*2*i/numpoints + Math.PI/numpoints - Math.PI/2)));
 	}
 
 	if(draw) {
