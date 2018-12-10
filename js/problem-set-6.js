@@ -346,7 +346,16 @@ function drawStopSign() {
 	let ypoints = [];
 	let numpoints = 8;
 	let rad = sidel/(2*Math.sin(Math.PI/numpoints))
-	let draw = true;
+	let draw = false;
+
+	let usrnumpoints = Number(prompt("Enter Number of Sides"));
+	numpoints = usrnumpoints;
+
+	if(numpoints >= 3 && Number.isInteger(numpoints)) {
+		console.log("Draw");
+			let draw = true;
+	}
+	else{alert("Invalid input(s)");}
 
 	for (i=0; i<numpoints; i++) {
 		if(numpoints%2 == 0) {
